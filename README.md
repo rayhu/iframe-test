@@ -126,15 +126,10 @@ Multi-stage build with Node 20 and Nginx.
 
 ### Build image / 构建镜像
 
-```sh
-docker build -t iframe-test:latest .
-```
-
 ### Run container / 运行容器
 
 ```sh
-docker run --name iframe-test -p 8080:80 -d iframe-test:latest
-# Open http://localhost:8080
+sudo docker compose up -d --build
 ```
 
 ### Notes / 说明

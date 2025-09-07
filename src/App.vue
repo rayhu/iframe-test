@@ -12,9 +12,7 @@ const loadingProgress = ref(0)
 const loadError = ref<string | null>(null)
 const isUnityReady = ref(false)
 const currentAvatarId = ref<string | null>(null)
-const currentUnityUrl = ref<string | null>(null)
-
-currentUnityUrl.value = 'https://cdn.fangmiaokeji.cn/daizi/v2.2/index.html?cc=daidai_2'
+const currentUnityUrl = ref<string>('https://cdn.fangmiaokeji.cn/daizi/v2.2/index.html?cc=daidai_2')
 
 // 硬编码按钮动作（使用 actualName 作为 ani_name）
 const actions = [
