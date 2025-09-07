@@ -47,7 +47,7 @@ function playAni(aniActualName: string) {
 <template>
   <div class="unity-iframe-container">
     <iframe
-      src="https://cdn.fangmiaokeji.cn/daizi/v2.2/index.html?cc=daidai_1"
+      src="https://cdn.fangmiaokeji.cn/daizi/v2.2/index.html?cc=daidai_2"
       title="AI-Chat-Toolkit"
       ref="unityFrame"
       class="unity-iframe"
