@@ -1,8 +1,20 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const unityFrame = ref<HTMLIFrameElement | null>(null)
+// 消息队列 - 在 Unity 未就绪时缓存消息
+const messageQueue = ref<Array<{ kind: string; msg: any }>>([])
+
+// 状态管理
+const isLoading = ref(false)
+const loadingProgress = ref(0)
+const loadError = ref<string | null>(null)
+const isUnityReady = ref(false)
+const currentAvatarId = ref<string | null>(null)
+const currentUnityUrl = ref<string | null>(null)
+
+currentUnityUrl.value = 'https://cdn.fangmiaokeji.cn/daizi/v2.2/index.html?cc=daidai_2'
 
 // 硬编码按钮动作（使用 actualName 作为 ani_name）
 const actions = [
@@ -42,12 +54,143 @@ function sendToUnity(kind: string, msg: any) {
 function playAni(aniActualName: string) {
   sendToUnity('play_ani', { ani_name: aniActualName })
 }
+
+function sendUnityReadyMessage(avatarId: string) {
+  window.postMessage(
+    {
+      type: 'unity-ready',
+      avatarId: avatarId,
+    },
+    window.origin, // 或者 '*'
+  )
+}
+
+// 处理消息队列
+function flushMessageQueue() {
+  if (messageQueue.value.length === 0) return
+
+  console.log(`📤 Flushing ${messageQueue.value.length} queued messages to Unity`)
+
+  messageQueue.value.forEach(({ kind, msg }) => {
+    sendToUnity(kind, msg)
+  })
+
+  messageQueue.value = []
+}
+// 验证消息来源
+function isValidOrigin(origin: string): boolean {
+  // 在开发环境允许本地源
+  const allowedOrigins = [
+    window.location.origin,
+    // TODO: 以后需要删除这个
+    'http://localhost:5173',
+    'http://localhost:3000',
+  ]
+  return allowedOrigins.includes(origin)
+}
+
+// Unity 进度更新监听器
+function handleUnityProgress(event: MessageEvent) {
+  if (!isValidOrigin(event.origin)) return
+
+  if (event.data?.type === 'unity-progress') {
+    const { progress } = event.data
+    loadingProgress.value = Math.round(progress * 100)
+  }
+}
+
+// Unity 错误监听器
+function handleUnityError(event: MessageEvent) {
+  if (!isValidOrigin(event.origin)) return
+
+  if (event.data?.type === 'unity-error') {
+    const { message } = event.data
+    console.error('❌ Unity WebGL error:', message)
+    loadError.value = message
+    isLoading.value = false
+  }
+}
+
+// Unity 就绪状态监听器
+function handleUnityReady(event: MessageEvent) {
+  // 验证消息来源
+  if (!isValidOrigin(event.origin)) {
+    console.warn('🚫 Invalid origin for Unity ready message:', event.origin)
+    return
+  }
+
+  if (event.data?.type === 'unity-ready') {
+    const { avatarId } = event.data
+    console.log('🎮 Unity WebGL ready for avatar:', avatarId)
+
+    isUnityReady.value = true
+    currentAvatarId.value = avatarId
+    isLoading.value = false
+    loadingProgress.value = 100
+
+    // 处理消息队列
+    flushMessageQueue()
+
+    // 触发自定义事件
+    window.dispatchEvent(
+      new CustomEvent('unity-avatar-ready', {
+        detail: { avatarId },
+      }),
+    )
+  }
+}
+
+// 生命周期管理
+onMounted(() => {
+  // 注册 Unity 消息监听器
+  window.addEventListener('message', handleUnityReady)
+  window.addEventListener('message', handleUnityProgress)
+  window.addEventListener('message', handleUnityError)
+
+  // 处理窗口大小变化
+  // window.addEventListener('resize', handleResize)
+
+  console.log('🎮 UnityModelViewer mounted')
+
+  // 延迟 3 秒发送Unity提供的示例消息，表示Unity加载完毕
+  // TODO: 以后在Unity方面发送一个加载完毕的消息代替这个调用
+  setTimeout(() => {
+    try {
+      if (unityFrame.value?.contentWindow) {
+        // 袋袋加载之后，首个动作是开心打招呼
+        const msg = { command: 'play_ani', ani_name: 'idle06_Happy' }
+        unityFrame.value.contentWindow.postMessage(JSON.stringify(msg), '*')
+        console.log('Sent test play_ani message to Unity iframe')
+        sendUnityReadyMessage('daidai_01')
+      } else {
+        console.warn('Unity iframe contentWindow not available when sending test message')
+      }
+    } catch (err) {
+      console.error('Failed to send test message to Unity iframe:', err)
+    }
+  }, 3000)
+})
+
+onUnmounted(() => {
+  // 清理消息监听器
+  window.removeEventListener('message', handleUnityReady)
+  window.removeEventListener('message', handleUnityProgress)
+  window.removeEventListener('message', handleUnityError)
+  // window.removeEventListener('resize', handleResize)
+
+  // 清理状态
+  isUnityReady.value = false
+  messageQueue.value = []
+
+  console.log('🧹 UnityModelViewer unmounted')
+})
 </script>
 
 <template>
+  <!--       src="https://cdn.fangmiaokeji.cn/daizi/v2.2/index.html?cc=daidai_2"  -->
   <div class="unity-iframe-container">
     <iframe
-      src="https://cdn.fangmiaokeji.cn/daizi/v2.2/index.html?cc=daidai_2"
+      :src="currentUnityUrl"
       title="AI-Chat-Toolkit"
       ref="unityFrame"
       class="unity-iframe"

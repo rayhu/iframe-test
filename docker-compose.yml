@@ -6,9 +6,11 @@ services:
     image: iframe-test:latest
     container_name: iframe-test
     ports:
-      - '8080:80'
+      - '8888:80'
     networks:
       - jc21-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
 networks:
   jc21-network:
