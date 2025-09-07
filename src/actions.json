@@ -1,164 +1,164 @@
 {
-    "daidai_std": {
-        "name": "袋袋标准动作集",
-        "description": "袋袋标准动作集",
-        "animations": {
-            "actions": [
-                {
-                    "actualName": "idle01_BaoQianNuLi",
-                    "callName": "ApologyGesture",
-                    "displayName": "抱歉但努力",
-                    "description": "道歉姿势，鞠躬表达歉意",
-                    "category": "gesture",
-                    "enabled": true,
-                    "parameters": {
-                        "loop": false
-                    }
-                },
-                {
-                    "actualName": "idle02_Love",
-                    "callName": "BlinkLoveExpression",
-                    "displayName": "表达爱意",
-                    "description": "眨眼睛，双手比心",
-                    "category": "movement",
-                    "enabled": true,
-                    "parameters": {
-                        "loop": false
-                    }
-                },
-                {
-                    "actualName": "idle03_DaXiao",
-                    "callName": "BigSmile",
-                    "displayName": "大笑",
-                    "description": "开怀大笑动作",
-                    "category": "expression",
-                    "enabled": true,
-                    "parameters": {
-                        "loop": false
-                    }
-                },
-                {
-                    "actualName": "idle04_TiaoPi",
-                    "callName": "PlayfulGesture",
-                    "displayName": "调皮",
-                    "description": "调皮动作，轻松搞怪",
-                    "category": "gesture",
-                    "enabled": true,
-                    "parameters": {
-                        "loop": false
-                    }
-                },
-                {
-                    "actualName": "idle05_Sorry",
-                    "callName": "SorryExpression",
-                    "displayName": "鞠躬致谢​​（再见）",
-                    "description": "不好意思的表情和手势",
-                    "category": "expression",
-                    "enabled": true,
-                    "parameters": {
-                        "loop": false
-                    }
-                },
-                {
-                    "actualName": "idle06_Happy",
-                    "callName": "HappyExpression",
-                    "displayName": "开心打招呼",
-                    "description": "开心微笑动作",
-                    "category": "expression",
-                    "enabled": true,
-                    "parameters": {
-                        "loop": false
-                    }
-                },
-                {
-                    "actualName": "idle07_Smile",
-                    "callName": "SmileExpression",
-                    "displayName": "微笑",
-                    "description": "自然的微笑",
-                    "category": "expression",
-                    "enabled": true,
-                    "parameters": {
-                        "loop": false
-                    }
-                },
-                {
-                    "actualName": "J00",
-                    "callName": "NeutralPose",
-                    "displayName": "普通讲解模式",
-                    "description": "默认站姿",
-                    "category": "pose",
-                    "enabled": true,
-                    "parameters": {
-                        "loop": true
-                    }
-                },
-                {
-                    "actualName": "J01_Daoqian",
-                    "callName": "DaoqianGesture",
-                    "displayName": "（讲解模式）道歉安抚",
-                    "description": "解释解说道歉动作",
-                    "category": "gesture",
-                    "enabled": true,
-                    "parameters": {
-                        "loop": false
-                    }
-                },
-                {
-                    "actualName": "J02_Duibi",
-                    "callName": "ComparisonGesture",
-                    "displayName": "（讲解模式）对比分析",
-                    "description": "对比分析手势",
-                    "category": "gesture",
-                    "enabled": true,
-                    "parameters": {
-                        "loop": false
-                    }
-                },
-                {
-                    "actualName": "J03_Juli",
-                    "callName": "DistanceExplanation",
-                    "displayName": "（讲解模式）举例说明",
-                    "description": "举例说明动作",
-                    "category": "gesture",
-                    "enabled": true,
-                    "parameters": {
-                        "loop": false
-                    }
-                },
-                {
-                    "actualName": "J04_Qiangdiao",
-                    "callName": "EmphasisGesture",
-                    "displayName": "（讲解模式）强调重点",
-                    "description": "强调重点动作",
-                    "category": "gesture",
-                    "enabled": true,
-                    "parameters": {
-                        "loop": false
-                    }
-                },
-                {
-                    "actualName": "J05_Zhixiang",
-                    "callName": "PointingGesture",
-                    "displayName": "（讲解模式）指向重点",
-                    "description": "指向动作",
-                    "category": "gesture",
-                    "enabled": true,
-                    "parameters": {
-                        "loop": false
-                    }
-                },
-                {
-                    "actualName": "ZZ_mode",
-                    "callName": "ProfessionalMode",
-                    "displayName": "专注模式",
-                    "description": "专注模式动作",
-                    "category": "pose",
-                    "enabled": true,
-                    "parameters": {
-                        "loop": true
-                    }
-                }
-            ]
+  "daidai_std": {
+    "name": "袋袋标准动作集",
+    "description": "袋袋标准动作集",
+    "animations": {
+      "actions": [
+        {
+          "actualName": "idle01_BaoQianNuLi",
+          "callName": "ApologyGesture",
+          "displayName": "抱歉但努力",
+          "description": "道歉姿势，鞠躬表达歉意",
+          "category": "gesture",
+          "enabled": true,
+          "parameters": {
+            "loop": false
+          }
+        },
+        {
+          "actualName": "idle02_Love",
+          "callName": "BlinkLoveExpression",
+          "displayName": "表达爱意",
+          "description": "眨眼睛，双手比心",
+          "category": "movement",
+          "enabled": true,
+          "parameters": {
+            "loop": false
+          }
+        },
+        {
+          "actualName": "idle03_DaXiao",
+          "callName": "BigSmile",
+          "displayName": "大笑",
+          "description": "开怀大笑动作",
+          "category": "expression",
+          "enabled": true,
+          "parameters": {
+            "loop": false
+          }
+        },
+        {
+          "actualName": "idle04_TiaoPi",
+          "callName": "PlayfulGesture",
+          "displayName": "调皮",
+          "description": "调皮动作，轻松搞怪",
+          "category": "gesture",
+          "enabled": true,
+          "parameters": {
+            "loop": false
+          }
+        },
+        {
+          "actualName": "idle05_Sorry",
+          "callName": "SorryExpression",
+          "displayName": "鞠躬致谢​​（再见）",
+          "description": "不好意思的表情和手势",
+          "category": "expression",
+          "enabled": true,
+          "parameters": {
+            "loop": false
+          }
+        },
+        {
+          "actualName": "idle06_Happy",
+          "callName": "HappyExpression",
+          "displayName": "开心打招呼",
+          "description": "开心微笑动作",
+          "category": "expression",
+          "enabled": true,
+          "parameters": {
+            "loop": false
+          }
+        },
+        {
+          "actualName": "idle07_Smile",
+          "callName": "SmileExpression",
+          "displayName": "微笑",
+          "description": "自然的微笑",
+          "category": "expression",
+          "enabled": true,
+          "parameters": {
+            "loop": false
+          }
+        },
+        {
+          "actualName": "J00",
+          "callName": "NeutralPose",
+          "displayName": "普通讲解模式",
+          "description": "默认站姿",
+          "category": "pose",
+          "enabled": true,
+          "parameters": {
+            "loop": true
+          }
+        },
+        {
+          "actualName": "J01_Daoqian",
+          "callName": "DaoqianGesture",
+          "displayName": "（讲解模式）道歉安抚",
+          "description": "解释解说道歉动作",
+          "category": "gesture",
+          "enabled": true,
+          "parameters": {
+            "loop": false
+          }
+        },
+        {
+          "actualName": "J02_Duibi",
+          "callName": "ComparisonGesture",
+          "displayName": "（讲解模式）对比分析",
+          "description": "对比分析手势",
+          "category": "gesture",
+          "enabled": true,
+          "parameters": {
+            "loop": false
+          }
+        },
+        {
+          "actualName": "J03_Juli",
+          "callName": "DistanceExplanation",
+          "displayName": "（讲解模式）举例说明",
+          "description": "举例说明动作",
+          "category": "gesture",
+          "enabled": true,
+          "parameters": {
+            "loop": false
+          }
+        },
+        {
+          "actualName": "J04_Qiangdiao",
+          "callName": "EmphasisGesture",
+          "displayName": "（讲解模式）强调重点",
+          "description": "强调重点动作",
+          "category": "gesture",
+          "enabled": true,
+          "parameters": {
+            "loop": false
+          }
+        },
+        {
+          "actualName": "J05_Zhixiang",
+          "callName": "PointingGesture",
+          "displayName": "（讲解模式）指向重点",
+          "description": "指向动作",
+          "category": "gesture",
+          "enabled": true,
+          "parameters": {
+            "loop": false
+          }
+        },
+        {
+          "actualName": "ZZ_mode",
+          "callName": "ProfessionalMode",
+          "displayName": "专注模式",
+          "description": "专注模式动作",
+          "category": "pose",
+          "enabled": true,
+          "parameters": {
+            "loop": true
+          }
         }
+      ]
     }
+  }
 }

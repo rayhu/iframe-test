@@ -118,6 +118,31 @@ git subtree push --prefix dist origin gh-pages
 
 在仓库 Settings → Pages 中启用，Branch 选择 `gh-pages`。
 
+## Docker / 自建服务器部署（Docker）
+
+Multi-stage build with Node 20 and Nginx.
+
+使用多阶段构建（Node 20 + Nginx）。
+
+### Build image / 构建镜像
+
+```sh
+docker build -t iframe-test:latest .
+```
+
+### Run container / 运行容器
+
+```sh
+docker run --name iframe-test -p 8080:80 -d iframe-test:latest
+# Open http://localhost:8080
+```
+
+### Notes / 说明
+
+- The image builds with `yarn build` then serves `/dist` via Nginx.
+- For custom domains and HTTPS, place behind a reverse proxy (e.g., Caddy/Traefik/Nginx) or terminate TLS at a load balancer.
+- If your server cannot access public registries, pre-build and push to a private registry.
+
 ## Scripts / 脚本
 
 ```json

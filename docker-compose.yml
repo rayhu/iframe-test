@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  iframe-test:
+    build: .
+    image: iframe-test:latest
+    container_name: iframe-test
+    ports:
+      - '8080:80'
+    networks:
+      - jc21-network
+
+networks:
+  jc21-network:
+    external: true
+    name: avatar-mgmt-jc21-network
