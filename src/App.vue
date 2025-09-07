@@ -163,4 +163,11 @@ function playAni(aniActualName: string) {
   height: 16px;
   fill: currentColor;
 }
+@media (max-width: 480px) {
+  .unity-iframe-container {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto 32px;
+  }
+}
 </style>
