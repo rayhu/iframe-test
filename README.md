@@ -147,9 +147,63 @@ sudo docker compose up -d --build
   "preview": "vite preview",
   "type-check": "vue-tsc --build",
   "lint": "eslint . --fix",
-  "format": "prettier --write src/"
+  "format": "prettier --write src/",
+  "test": "vitest",
+  "test:run": "vitest run",
+  "test:ui": "vitest --ui",
+  "test:coverage": "vitest run --coverage"
 }
 ```
+
+## Testing / 测试
+
+项目使用 [Vitest](https://vitest.dev/) 作为测试框架，提供完整的单元测试覆盖。
+
+### 运行测试
+
+```bash
+# 运行所有测试
+yarn test
+
+# 运行测试一次（CI 模式）
+yarn test:run
+
+# 启动测试 UI 界面
+yarn test:ui
+
+# 运行测试并生成覆盖率报告
+yarn test:coverage
+```
+
+### 测试文件结构
+
+```
+src/
+├── composables/
+│   ├── __tests__/
+│   │   └── useUnityMessaging.test.ts    # Unity 通信 composable 测试
+│   └── useUnityMessaging.ts
+├── utils/
+│   ├── __tests__/
+│   │   └── unity.test.ts                # 工具函数测试
+│   └── unity.ts
+└── tests/
+    └── setup.ts                         # 测试环境配置
+```
+
+### 测试覆盖范围
+
+- **useUnityMessaging composable**: 16 个测试
+  - 状态管理
+  - Unity 消息发送和接收
+  - 动画播放控制
+  - 错误处理和超时
+  - 事件监听器管理
+  
+- **工具函数**: 8 个测试
+  - 请求 ID 生成
+  - 来源验证
+  - 常量验证
 
 ## Recommended IDE / 推荐 IDE
 
