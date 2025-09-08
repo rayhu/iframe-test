@@ -6,11 +6,12 @@
 
 - 通过 `window.postMessage` 在父页面与 Unity iframe 之间进行消息通信。
 - 控制 Unity 动画播放，并在动画完成后回调父页面。
+- 控制 Unity 音频驱动口型，并在播放完成后回调父页面。
 - 在 Unity 加载完毕时向父页面发送“就绪”消息。
 
 ## 2. 通信通道（Channels）
 
-- 父页面 → Unity（宿主 → iframe）：发送指令，例如“播放动画”。
+- 父页面 → Unity（宿主 → iframe）：发送指令，例如“播放动画 play_ani ”。
 - Unity → 父页面（iframe → 宿主）：发送加载就绪、动画生命周期事件（开始/完成/失败）。
 
 ## 3. 安全与来源（Security & Origins）
@@ -58,6 +59,8 @@ iframe.contentWindow.postMessage(JSON.stringify(payload), TARGET_ORIGIN)
 - 音频格式要求：WAV（PCM16），采样率 44100，单声道（mono）。
 - 字段：
   - `command` (string) 固定值 `"playVoice"`
+  - `text` (string) 文本内容
+  - `requestId` (string) 唯一请求 ID，Unity 在回包中需原样返回
   - `data` (string) 音频的 Base64 编码（仅 Base64 纯数据，不包含 `data:audio/wav;base64,` 前缀）
 - 示例（父页面发送）：
 
@@ -274,4 +277,4 @@ window.dispatchEvent(
 
 ---
 
-如需对协议进行扩展或变更，请与前端保持一致更新，并在提交说明中同步记录。若你希望我将上述“可选配置”落地为 `.env` 与代码读取逻辑，我可以在不破坏现有功能的前提下逐步增加（保持默认值作为回退）。
+如需对协议进行扩展或变更，请与前端保持一致更新，并在提交说明中同步记录。
