@@ -92,8 +92,8 @@ export function useUnityMessaging(unityFrame: Ref<HTMLIFrameElement | null>) {
 
   // 动作完成消息处理
   function handleAnimationDoneMessage(evt: MessageEvent) {
-    // 只接收来自指定 Origin 的消息
-    if (evt.origin !== TARGET_ORIGIN) return
+    // 放松：允许通过工具方法校验来源
+    if (!isValidOrigin(evt.origin)) return
 
     let data: unknown = evt.data
     if (typeof data === 'string') {

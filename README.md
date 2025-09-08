@@ -31,6 +31,16 @@ Open `http://localhost:5173` in your browser.
 
 浏览器访问 `http://localhost:5173`。
 
+### Env vars / 环境变量
+
+Create a `.env` file (or copy from `.env.example`) and set:
+
+```
+VITE_UNITY_TARGET_ORIGIN=https://cdn.fangmiaokeji.cn
+```
+
+用于指定向 Unity 发送消息时的目标 Origin。
+
 ## Build & preview / 构建与预览
 
 ```sh
@@ -199,7 +209,6 @@ src/
   - 动画播放控制
   - 错误处理和超时
   - 事件监听器管理
-  
 - **工具函数**: 8 个测试
   - 请求 ID 生成
   - 来源验证
