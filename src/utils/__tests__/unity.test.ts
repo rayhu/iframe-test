@@ -6,7 +6,7 @@ describe('Unity Utils', () => {
     it('应该生成唯一的请求ID', () => {
       const id1 = generateRequestId()
       const id2 = generateRequestId()
-      
+
       expect(id1).toBeDefined()
       expect(id2).toBeDefined()
       expect(id1).not.toBe(id2)
@@ -16,7 +16,7 @@ describe('Unity Utils', () => {
 
     it('应该包含时间戳和随机字符', () => {
       const id = generateRequestId()
-      
+
       // 应该包含时间戳（数字）和连字符以及随机字符
       expect(id).toMatch(/^\d+-[a-z0-9]{6}$/)
     })

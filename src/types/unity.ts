@@ -23,8 +23,6 @@ export interface UnityReadyData {
   avatarId: string
 }
 
-
-
 export interface AnimationCompleteData {
   status?: 'completed' | 'started' | 'failed'
   command: 'play_ani'

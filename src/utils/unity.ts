@@ -1,7 +1,8 @@
 // Unity 相关的工具函数和常量
 
 // 目标 Origin（更安全，避免使用 '*'）
-export const TARGET_ORIGIN = (import.meta.env.VITE_UNITY_TARGET_ORIGIN || 'https://cdn.fangmiaokeji.cn') as string
+export const TARGET_ORIGIN = (import.meta.env.VITE_UNITY_TARGET_ORIGIN ||
+  'https://cdn.fangmiaokeji.cn') as string
 
 // 生成请求ID
 export function generateRequestId(): string {

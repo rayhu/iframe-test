@@ -4,7 +4,7 @@ import type {
   AnimationRequest,
   QueuedMessage,
   UnityReadyData,
-  AnimationCompleteData
+  AnimationCompleteData,
 } from '../types/unity'
 import { generateRequestId, isValidOrigin, TARGET_ORIGIN } from '../utils/unity'
 
@@ -29,7 +29,7 @@ export function useUnityMessaging(unityFrame: Ref<HTMLIFrameElement | null>) {
     console.log(`📤 Flushing ${messageQueue.value.length} queued messages to Unity`)
 
     messageQueue.value.forEach(({ kind, msg }) => {
-      sendToUnity(kind, msg).catch(error => {
+      sendToUnity(kind, msg).catch((error) => {
         console.error('Failed to send queued message:', error)
       })
     })
@@ -119,7 +119,6 @@ export function useUnityMessaging(unityFrame: Ref<HTMLIFrameElement | null>) {
 
     console.log('收到播放动画的消息，', animationData)
 
-
     if (animationData.status === 'started') {
       console.log('收到播放动画的消息，动画开始')
       return
@@ -132,7 +131,7 @@ export function useUnityMessaging(unityFrame: Ref<HTMLIFrameElement | null>) {
 
     // 约定的完成信号（以下任一字段匹配即可，根据对接情况自行调整）
     const aniData = animationData as AnimationCompleteData
-    const isAniComplete = (aniData.status === 'completed')
+    const isAniComplete = aniData.status === 'completed'
 
     if (!isAniComplete) return
 
@@ -253,6 +252,6 @@ export function useUnityMessaging(unityFrame: Ref<HTMLIFrameElement | null>) {
     setupMessageListeners,
     removeMessageListeners,
     cleanupPendingRequests,
-    resetState
+    resetState,
   }
 }

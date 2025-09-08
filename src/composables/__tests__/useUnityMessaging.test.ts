@@ -7,9 +7,11 @@ import type { AnimationCompleteData, UnityReadyData } from '../../types/unity'
 vi.mock('../../utils/unity', () => ({
   generateRequestId: vi.fn(() => 'test-request-id-123'),
   isValidOrigin: vi.fn((origin: string) => {
-    return ['http://localhost:5173', 'http://localhost:3000', window.location.origin].includes(origin)
+    return ['http://localhost:5173', 'http://localhost:3000', window.location.origin].includes(
+      origin,
+    )
   }),
-  TARGET_ORIGIN: 'https://cdn.fangmiaokeji.cn'
+  TARGET_ORIGIN: 'https://cdn.fangmiaokeji.cn',
 }))
 
 describe('useUnityMessaging', () => {
@@ -21,12 +23,12 @@ describe('useUnityMessaging', () => {
   beforeEach(() => {
     // 创建模拟的 iframe contentWindow
     mockContentWindow = {
-      postMessage: vi.fn()
+      postMessage: vi.fn(),
     }
 
     // 创建模拟的 iframe 元素
     mockIframe = {
-      contentWindow: mockContentWindow as unknown as Window
+      contentWindow: mockContentWindow as unknown as Window,
     } as unknown as HTMLIFrameElement
 
     // 创建 ref
@@ -59,7 +61,7 @@ describe('useUnityMessaging', () => {
         isUnityReady,
         currentAvatarId,
         lastError,
-        playingAnimations
+        playingAnimations,
       } = composable
 
       expect(isLoading.value).toBe(false)
@@ -80,7 +82,7 @@ describe('useUnityMessaging', () => {
         currentAvatarId,
         lastError,
         playingAnimations,
-        resetState
+        resetState,
       } = composable
 
       // 修改一些状态
@@ -112,18 +114,18 @@ describe('useUnityMessaging', () => {
       unityFrameRef.value = null
       const { sendToUnity } = composable
 
-      await expect(sendToUnity('play_ani', { ani_name: 'test' }))
-        .rejects
-        .toThrow('Unity iframe not available')
+      await expect(sendToUnity('play_ani', { ani_name: 'test' })).rejects.toThrow(
+        'Unity iframe not available',
+      )
     })
 
     it('应该在 contentWindow 不存在时拒绝 Promise', async () => {
       unityFrameRef.value = { contentWindow: null } as unknown as HTMLIFrameElement
       const { sendToUnity } = composable
 
-      await expect(sendToUnity('play_ani', { ani_name: 'test' }))
-        .rejects
-        .toThrow('Unity iframe not available')
+      await expect(sendToUnity('play_ani', { ani_name: 'test' })).rejects.toThrow(
+        'Unity iframe not available',
+      )
     })
 
     it('应该正确发送消息到 Unity', async () => {
@@ -141,9 +143,9 @@ describe('useUnityMessaging', () => {
         JSON.stringify({
           command: 'play_ani',
           ani_name: 'test-animation',
-          requestId: 'test-request-id-123'
+          requestId: 'test-request-id-123',
         }),
-        'https://cdn.fangmiaokeji.cn'
+        'https://cdn.fangmiaokeji.cn',
       )
 
       // 模拟收到完成消息
@@ -151,14 +153,16 @@ describe('useUnityMessaging', () => {
         status: 'completed',
         command: 'play_ani',
         requestId: 'test-request-id-123',
-        ani_name: 'test-animation'
+        ani_name: 'test-animation',
       }
 
       // 直接分发事件
-      window.dispatchEvent(new MessageEvent('message', {
-        origin: 'https://cdn.fangmiaokeji.cn',
-        data: completeMessage
-      }))
+      window.dispatchEvent(
+        new MessageEvent('message', {
+          origin: 'https://cdn.fangmiaokeji.cn',
+          data: completeMessage,
+        }),
+      )
 
       await expect(sendPromise).resolves.toBeUndefined()
       vi.useRealTimers()
@@ -185,9 +189,7 @@ describe('useUnityMessaging', () => {
       // 添加到正在播放列表
       playingAnimations.value.add('test-animation')
 
-      await expect(playAnimation('test-animation'))
-        .rejects
-        .toThrow('Animation already playing')
+      await expect(playAnimation('test-animation')).rejects.toThrow('Animation already playing')
     })
 
     it('应该在成功时从播放列表中移除动画', async () => {
@@ -207,13 +209,15 @@ describe('useUnityMessaging', () => {
         status: 'completed',
         command: 'play_ani',
         requestId: 'test-request-id-123',
-        ani_name: 'test-animation'
+        ani_name: 'test-animation',
       }
 
-      window.dispatchEvent(new MessageEvent('message', {
-        origin: 'https://cdn.fangmiaokeji.cn',
-        data: completeMessage
-      }))
+      window.dispatchEvent(
+        new MessageEvent('message', {
+          origin: 'https://cdn.fangmiaokeji.cn',
+          data: completeMessage,
+        }),
+      )
 
       await playPromise
 
@@ -252,13 +256,15 @@ describe('useUnityMessaging', () => {
 
       const readyMessage: UnityReadyData = {
         type: 'unity-ready',
-        avatarId: 'test-avatar-123'
+        avatarId: 'test-avatar-123',
       }
 
-      window.dispatchEvent(new MessageEvent('message', {
-        origin: window.location.origin,
-        data: readyMessage
-      }))
+      window.dispatchEvent(
+        new MessageEvent('message', {
+          origin: window.location.origin,
+          data: readyMessage,
+        }),
+      )
 
       expect(isUnityReady.value).toBe(true)
       expect(currentAvatarId.value).toBe('test-avatar-123')
@@ -275,14 +281,16 @@ describe('useUnityMessaging', () => {
 
       const readyMessage: UnityReadyData = {
         type: 'unity-ready',
-        avatarId: 'test-avatar-123'
+        avatarId: 'test-avatar-123',
       }
 
       // 从无效来源发送消息
-      window.dispatchEvent(new MessageEvent('message', {
-        origin: 'https://malicious-site.com',
-        data: readyMessage
-      }))
+      window.dispatchEvent(
+        new MessageEvent('message', {
+          origin: 'https://malicious-site.com',
+          data: readyMessage,
+        }),
+      )
 
       // 状态不应该改变
       expect(isUnityReady.value).toBe(false)
@@ -326,7 +334,7 @@ describe('useUnityMessaging', () => {
           type: 'unity-ready',
           avatarId: 'test-avatar-123',
         },
-        window.origin
+        window.origin,
       )
     })
   })

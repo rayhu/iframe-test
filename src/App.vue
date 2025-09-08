@@ -18,7 +18,7 @@ const {
   setupMessageListeners,
   removeMessageListeners,
   cleanupPendingRequests,
-  resetState
+  resetState,
 } = useUnityMessaging(unityFrame)
 
 // 简化的动画播放函数
@@ -55,10 +55,10 @@ onMounted(() => {
 onUnmounted(() => {
   // 清理消息监听器
   removeMessageListeners()
-  
+
   // 清理所有待处理的请求和超时
   cleanupPendingRequests()
-  
+
   // 重置所有状态
   resetState()
 
@@ -79,9 +79,7 @@ onUnmounted(() => {
     ></iframe>
   </div>
   <!-- Error Display -->
-  <div v-if="lastError" class="error-message">
-    ⚠️ {{ lastError }}
-  </div>
+  <div v-if="lastError" class="error-message">⚠️ {{ lastError }}</div>
 
   <div class="actions-toolbar">
     <button
@@ -89,8 +87,8 @@ onUnmounted(() => {
       :key="action.actualName"
       class="action-btn"
       :class="{
-        'loading': playingAnimations.has(action.actualName),
-        'disabled': !isUnityReady
+        loading: playingAnimations.has(action.actualName),
+        disabled: !isUnityReady,
       }"
       :disabled="!isUnityReady || playingAnimations.has(action.actualName)"
       type="button"
