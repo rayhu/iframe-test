@@ -52,6 +52,98 @@
 iframe.contentWindow.postMessage(JSON.stringify(payload), TARGET_ORIGIN)
 ```
 
+### 父页面 → Unity：口型驱动（playVoice）
+
+- 指令：`command: "playVoice"`
+- 音频格式要求：WAV（PCM16），采样率 44100，单声道（mono）。
+- 字段：
+  - `command` (string) 固定值 `"playVoice"`
+  - `data` (string) 音频的 Base64 编码（仅 Base64 纯数据，不包含 `data:audio/wav;base64,` 前缀）
+- 示例（父页面发送）：
+
+```json
+{
+  "command": "playVoice",
+  "requestId": "1700000000000-ab12cd",
+  "text": "adsdewr"
+  "data": "UklGRiQAAABXQVZFZm10IBIAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAD..."
+}
+```
+
+- 发送方式（父页面）：
+
+```javascript
+const payload = {
+  command: 'playVoice',
+  requestId: "1700000000000-ab12cd",
+  text: "adsdewr"
+  data: base64WavString, // 不要带 data:audio/wav;base64, 前缀
+}
+iframe.contentWindow.postMessage(JSON.stringify(payload), TARGET_ORIGIN)
+```
+
+> 说明：
+>
+> - 建议 Unity 侧在收到 `playVoice` 后，开始播放音频并驱动口型（基于能量/包络或内置口型系统）。
+> - 若需要回调（如播放完成），建议按下述事件进行回调（带 `requestId` 以便关联请求）。
+
+#### Unity → 父页面：语音播放回调（play_voice_done）
+
+- 类型：`type: 'play_voice_done'`
+- 字段：
+  - `type` (string)：固定 `'play_voice_done'`
+  - `status` (string)：`'completed' | 'failed'`（可选 `'started'`）
+  - `requestId` (string)：与请求一致，用于关联
+  - `durationMs` (number，可选)：音频总时长（毫秒）
+  - `message` (string，可选)：错误或补充信息
+
+- 示例（播放开始，非必需）：
+
+```json
+{
+  "type": "play_voice_done",
+  "status": "started",
+  "requestId": "1700000000000-xy12zz"
+}
+```
+
+- 示例（播放完成）：
+
+```json
+{
+  "type": "play_voice_done",
+  "status": "completed",
+  "requestId": "1700000000000-xy12zz",
+  "durationMs": 3250
+}
+```
+
+- 示例（播放失败）：
+
+```json
+{
+  "type": "play_voice_done",
+  "status": "failed",
+  "requestId": "1700000000000-xy12zz",
+  "message": "Audio decode error"
+}
+```
+
+- 发送方式（Unity → 父页面）：
+
+```javascript
+window.parent.postMessage(
+  JSON.stringify({
+    type: 'play_voice_done',
+    status: 'completed', // 或 'failed' / 'started'
+    requestId,
+    durationMs,
+    message,
+  }),
+  window.parent.origin,
+)
+```
+
 ## 5. Unity → 父页面：动画生命周期（Lifecycle）
 
 Unity 端可按以下阶段回报（至少需要回报 `completed` 或 `failed`）。
