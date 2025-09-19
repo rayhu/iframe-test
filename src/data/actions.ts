@@ -20,7 +20,7 @@ export const animationActions: AnimationAction[] = [
 
 // Unity iframe 配置
 export const UNITY_CONFIG = {
-  url: 'https://cdn.fangmiaokeji.cn/daizi/v2.2/index.html?cc=daidai_2',
+  url: 'https://cdn.fangmiaokeji.cn/daizi/v2.7/index.html?cc=daidai_2',
   defaultAvatarId: 'daidai_01',
   initialAnimation: 'idle06_Happy',
   initDelay: 3000, // 3秒延迟发送初始消息

@@ -42,7 +42,7 @@ onMounted(() => {
         const msg = { command: 'play_ani', ani_name: UNITY_CONFIG.initialAnimation }
         unityFrame.value.contentWindow.postMessage(JSON.stringify(msg), TARGET_ORIGIN)
         console.log('Sent test play_ani message to Unity iframe')
-        sendUnityReadyMessage(UNITY_CONFIG.defaultAvatarId)
+        // sendUnityReadyMessage(UNITY_CONFIG.defaultAvatarId)
       } else {
         console.warn('Unity iframe contentWindow not available when sending test message')
       }
@@ -88,9 +88,8 @@ onUnmounted(() => {
       class="action-btn"
       :class="{
         loading: playingAnimations.has(action.actualName),
-        disabled: !isUnityReady,
+        // disabled: !isUnityReady,
       }"
-      :disabled="!isUnityReady || playingAnimations.has(action.actualName)"
       type="button"
       @click="playAni(action.actualName)"
       :aria-label="`${action.displayName} ${playingAnimations.has(action.actualName) ? '(playing)' : ''}`"
