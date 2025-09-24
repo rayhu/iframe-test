@@ -4,6 +4,25 @@ Simple Vue 3 + Vite app that embeds a Unity WebGL page via iframe and provides q
 
 简洁的 Vue 3 + Vite 项目：通过 iframe 嵌入 Unity WebGL 页面，并提供动作按钮，使用 postMessage 触发动画。
 
+# 如何使用？
+
+1. 在 .env 文件里面设置 CORS ORIGIN
+
+```
+VITE_UNITY_TARGET_ORIGIN=http://localhost:8000
+```
+
+2. 在 src/data/actions.ts里面设置具体的网址：
+
+```
+export const UNITY_CONFIG = {
+  url: 'http://localhost:8000/index.html?cc=daidai_2',
+```
+
+这个网址要真实存在，设置了CORS允许别的网址来嵌入。
+
+然后启动本网址即可
+
 ### Demo target / 目标页面
 
 - `https://cdn.fangmiaokeji.cn/daizi/v2.2/index.html?cc=daidai_1` 参考链接：[AI-Chat-Toolkit](https://cdn.fangmiaokeji.cn/daizi/v2.2/index.html?cc=daidai_1)

@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useUnityMessaging } from './composables/useUnityMessaging'
 import { animationActions, UNITY_CONFIG } from './data/actions'
-import { TARGET_ORIGIN } from './utils/unity'
+import { TARGET_ORIGIN, imageToBase64 } from './utils/unity'
 
 // 组件相关的 ref
 const unityFrame = ref<HTMLIFrameElement | null>(null)
@@ -35,7 +35,7 @@ onMounted(() => {
 
   // 延迟发送Unity提供的示例消息，表示 Unity加载完毕
   // TODO: 以后在Unity方面发送一个加载完毕的消息代替这个调用
-  setTimeout(() => {
+  setTimeout(async () => {
     try {
       if (unityFrame.value?.contentWindow) {
         // 袋袋加载之后，首个动作是开心打招呼
