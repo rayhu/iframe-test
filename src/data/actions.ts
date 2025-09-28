@@ -24,7 +24,7 @@ export const animationActions: AnimationAction[] = [
 export const UNITY_CONFIG = {
   url: 'http://localhost:8000/index.html?cc=daidai_2',
   //   url: 'https://cdn.fangmiaokeji.cn/daizi/v2.7/index.html?cc=daidai_2',
-  defaultAvatarId: 'daidai_01',
+  defaultAvatarId: 'daidai_02',
   initialAnimation: 'idle06_Happy',
   initDelay: 10000, // 3秒延迟发送初始消息
 }
