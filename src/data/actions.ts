@@ -9,12 +9,12 @@ export const animationActions: AnimationAction[] = [
   { actualName: 'idle05_Sorry', displayName: '鞠躬致谢（再见）' },
   { actualName: 'idle06_Happy', displayName: '开心打招呼' },
   { actualName: 'idle07_Smile', displayName: '微笑' },
-  { actualName: 'J00', displayName: '普通讲解模式' },
-  { actualName: 'J01_Daoqian', displayName: '（讲解）道歉安抚' },
-  { actualName: 'J02_Duibi', displayName: '（讲解）对比分析' },
-  { actualName: 'J03_Juli', displayName: '（讲解）举例说明' },
-  { actualName: 'J04_Qiangdiao', displayName: '（讲解）强调重点' },
-  { actualName: 'J05_Zhixiang', displayName: '（讲解）指向重点' },
+  { actualName: 'JJ00', displayName: '普通讲解模式' },
+  { actualName: 'JJ01_Daoqian', displayName: '（讲解）道歉安抚' },
+  { actualName: 'JJ02_Duibi', displayName: '（讲解）对比分析' },
+  { actualName: 'JJ03_Juli', displayName: '（讲解）举例说明' },
+  { actualName: 'JJ04_Qiangdiao', displayName: '（讲解）强调重点' },
+  { actualName: 'JJ05_Zhixiang', displayName: '（讲解）指向重点' },
   { actualName: 'ZZ_mode', displayName: '专注模式' },
 ]
 

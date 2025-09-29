@@ -51,7 +51,7 @@ export function useUnityMessaging(unityFrame: Ref<HTMLIFrameElement | null>) {
       const timeoutId = window.setTimeout(() => {
         pendingRequests.delete(requestId)
         reject(new Error('Timed out waiting for animation to complete'))
-      }, 15000)
+      }, 30000)
 
       pendingRequests.set(requestId, { aniName: msg.ani_name, resolve, reject, timeoutId })
 
